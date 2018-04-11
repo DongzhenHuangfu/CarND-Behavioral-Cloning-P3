@@ -2,7 +2,8 @@ import csv
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from keras.models import Sequential
+plt.switch_backend('agg')
+from keras.models import Sequential, Model
 from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
@@ -71,15 +72,15 @@ model.compile(loss='mse', optimizer='adam')
 # model.fit(X_train,y_train, validation_split=0.2,shuffle=True, nb_epoch=5)
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), \
 									validation_data=validation_generator, \
-									nb_val_samples=len(validation_samples), nb_epoch=10, verbose=1)
-print(history_object.histoty.keys())
-plt.plot(history_object.histoty['loss'])
-plt.plot(history_object.histoty['val_loss'])
+									nb_val_samples=len(validation_samples), nb_epoch=8, verbose=1)
+
+plt.plot(history_object.history['loss'])
+plt.plot(history_object.history['val_loss'])
 plt.title('model mean squared error loss')
 plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 plt.show()
-plt.savefig('./figures/loss.jpg')
+plt.savefig('./loss.jpg')
 
 model.save('model.h5')
