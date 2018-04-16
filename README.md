@@ -41,17 +41,19 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. Model architecture
 
-My model consists of a convolution neural network with 3x3 and 5x5 filter sizes and depths between 3 and 64 (model.py lines 61-64) 
+My model consists of a convolution neural network with 3x3 and 5x5 filter sizes and depths between 3 and 64 (model.py lines 76-80) 
 
-The model includes RELU layers to introduce nonlinearity (code line 61-64), and the data is normalized in the model using a Keras lambda layer (code line 58). 
+The model includes RELU layers to introduce nonlinearity (code line 76-88), and the data is normalized in the model using a Keras lambda layer (code line 73). 
 
 #### 2. Reduce overfitting in the model
 
-The model was trained and validated on different data sets(0.3 of the data serve as the validation set) to ensure that the model was not overfitting (code line 22-55). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track. 
+The model was trained and validated on different data sets(0.3 of the data serve as the validation set) to ensure that the model was not overfitting (code line 22-67). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track. 
+
+The model contains dropout layers in order to reduce overfitting (model.py lines 81).
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 71).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 92).
 
 #### 4. Training data
 
@@ -77,7 +79,13 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 57-69) consisted of a convolution neural network with the following fully connected layers.
+The final model architecture (model.py lines 73-90) consisted of a convolution neural network with the following fully connected layers.
+
+Here is a visualization of the architecture
+
+<img width="50%" height="300%" src="https://github.com/DongzhenHuangfu/CarND-Behavioral-Cloning-P3/raw/master/pictures/model.png"/>
+
+To generate this picture, I write a code named model_draw.py.
 
 #### 3. Creation of the Training Set & Training Process
 
@@ -98,9 +106,9 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 <img width="40%" height="40%" src="https://github.com/DongzhenHuangfu/CarND-Behavioral-Cloning-P3/raw/master/pictures/right2.jpg"/>         
 <img width="40%" height="40%" src="https://github.com/DongzhenHuangfu/CarND-Behavioral-Cloning-P3/raw/master/pictures/right2_flip.jpg"/>
 
-After the collection process, I had 15706 number of data points. I then preprocessed this data by cutting out the unnecessary part of the picture to save the memory(see line 60 in model.py).
+After the collection process, I had 15706 number of data points. I then preprocessed this data by cutting out the unnecessary part of the picture to save the memory(see line 73 in model.py).
 
 
 I finally randomly shuffled the data set and put 30% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 8 as evidenced by the result I get when I setted the epochs as 20, I found that the loss stop to reduce at about epoch 7 or 8. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 20 as evidenced by the result I get when I setted the epochs as 20, I found that the loss stop to reduce at about epoch 15, but vibrate. I used an adam optimizer so that manually training the learning rate wasn't necessary.
